@@ -22,5 +22,34 @@ defmodule Solution do
   end
 end
 
+defmodule SolutionRecursion do
+  def is_valid(s) do
+    check(s, [])
+  end
+
+  defp check("", []), do: true
+
+  defp check("(" <> s, stack) do
+    check(s, [")" | stack])
+  end
+
+  defp check("[" <> s, stack) do
+    check(s, ["]" | stack])
+  end
+
+  defp check("{" <> s, stack) do
+    check(s, ["}" | stack])
+  end
+
+  defp check(<<closing::utf8, s::binary>>, [<<opening::utf8>> | stack]) do
+    check(s, stack)
+  end
+
+  defp check(_s, _stack), do: false
+end
+
 Solution.is_valid(valid) |> IO.inspect()
 Solution.is_valid(invalid) |> IO.inspect()
+
+SolutionRecursion.is_valid(valid) |> IO.inspect()
+SolutionRecursion.is_valid(invalid) |> IO.inspect()
