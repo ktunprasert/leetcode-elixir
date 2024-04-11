@@ -7,13 +7,9 @@ target2 = 6
 defmodule Solution do
   def two_sum(nums, target) do
     Enum.reduce_while(nums, {%{}, 0}, fn num, {acc, index} ->
-      diff = target - num
-      index_of_diff = Map.get(acc, diff)
-
-      if index_of_diff do
-        {:halt, [index_of_diff, index]}
-      else
-        {:cont, {Map.put(acc, num, index), index + 1}}
+      case Map.get(acc, target - num) do
+        nil -> {:cont, {Map.put(acc, num, index), index + 1}}
+        i -> {:halt, [i, index]}
       end
     end)
   end
