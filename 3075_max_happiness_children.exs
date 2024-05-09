@@ -34,7 +34,6 @@ defmodule Solution do
   def maximum_happiness_sum(happiness, k) do
     happiness
     |> Enum.sort(&>=/2)
-    |> Enum.take(k)
     |> Enum.zip(0..(k - 1))
     |> Enum.reduce(0, fn
       {n, dec}, acc when n - dec <= 0 -> acc
