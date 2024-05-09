@@ -35,15 +35,11 @@ defmodule Solution do
     happiness
     |> Enum.sort(&>=/2)
     |> Enum.take(k)
-    |> Enum.reduce({0, 0}, fn n, {acc, dec} ->
-      n = if n - dec <= 0, do: 0, else: n - dec
-      {acc + n, dec + 1}
+    |> Enum.zip(0..(k - 1))
+    |> Enum.reduce(0, fn
+      {n, dec}, acc when n - dec <= 0 -> acc
+      {n, dec}, acc -> acc + n - dec
     end)
-    |> elem(0)
-  end
-
-  def maximum_happiness_sum({h, k}) do
-    maximum_happiness_sum(h, k)
   end
 end
 
@@ -54,8 +50,5 @@ end
   case4,
   case5
 ]
-|> Enum.map(&Solution.maximum_happiness_sum/1)
+|> Enum.map(fn {h, k} -> Solution.maximum_happiness_sum(h, k) end)
 |> dbg
-
-# Solution.maximum_happiness_sum(case4)
-# |> dbg
