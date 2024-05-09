@@ -8,4 +8,4 @@ defmodule Solution do
   end
 end
 
-Solution.group_anagrams(strs) |> dbg
+Solution.group_anagrams(strs)
