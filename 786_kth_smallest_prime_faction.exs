@@ -8,6 +8,10 @@ defmodule Solution do
   @spec kth_smallest_prime_fraction(arr :: [integer], k :: integer) :: [integer]
   def kth_smallest_prime_fraction([a, b], _), do: [a, b]
 
+  def kth_smallest_prime_fraction([a | rest], k) when k <= 2 do
+    [a, rest |> Enum.reverse() |> Enum.at(k - 1)]
+  end
+
   def kth_smallest_prime_fraction(arr, k) do
     for i <- arr, j <- arr, i < j do
       [i, j]
