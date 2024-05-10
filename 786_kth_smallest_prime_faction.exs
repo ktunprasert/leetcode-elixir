@@ -14,10 +14,11 @@ defmodule Solution do
 
   def kth_smallest_prime_fraction(arr, k) do
     for i <- arr, j <- arr, i < j do
-      [i, j]
+      {i/j, [i, j]}
     end
-    |> Enum.sort(fn [a, b], [x, y] -> a / b <= x / y end)
+    |> :ordsets.from_list()
     |> Enum.at(k - 1)
+    |> elem(1)
   end
 end
 
@@ -25,6 +26,6 @@ cases
 |> Enum.each(fn {input, k, expected} ->
   out = Solution.kth_smallest_prime_fraction(input, k)
 
-  {input, k, out, out === expected}
+  {input, k, out, expected, out === expected}
   |> IO.inspect()
 end)
