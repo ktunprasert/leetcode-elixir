@@ -1,7 +1,8 @@
 cases = [
   # input, k, expected
   {[1, 2, 3, 5], 3, [2, 5]},
-  {[1, 7], 1, [1, 7]}
+  {[1, 7], 1, [1, 7]},
+  {[1, 3, 5, 7, 11, 23, 37], 3, [3, 37]}
 ]
 
 defmodule Solution do
@@ -14,9 +15,9 @@ defmodule Solution do
 
   def kth_smallest_prime_fraction(arr, k) do
     for i <- arr, j <- arr, i < j do
-      {i/j, [i, j]}
+      {i / j, [i, j]}
     end
-    |> :ordsets.from_list()
+    |> :orddict.from_list()
     |> Enum.at(k - 1)
     |> elem(1)
   end
