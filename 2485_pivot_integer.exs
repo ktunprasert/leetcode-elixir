@@ -11,12 +11,15 @@ defmodule Solution do
   def pivot_integer(n) do
     (n - 1)..1
     |> Stream.map(fn x ->
-      {x + 1, 1..(x + 1), (x + 1)..n}
+      {
+        x + 1,
+        1..(x + 1) |> sum(),
+        (x + 1)..n |> sum()
+      }
     end)
-    |> Enum.find_value(-1, fn {x, a, b} ->
-      if sum(a) == sum(b) do
-        x
-      end
+    |> Enum.find_value(-1, fn
+      {x, same, same} -> x
+      _ -> nil
     end)
   end
 
